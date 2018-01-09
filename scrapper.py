@@ -61,15 +61,15 @@ if __name__ == '__main__':
         products_EUR = list(filter(lambda x: "EUR" in x["id"] and crypto_money in x["id"], public_client.get_products()))
 
         beginning_date_str = "2017-01-01"
-        end_date_str = "2017-12-01"
+        end_date_str = "2017-12-09"
 
         batch_beginning_date = datetime.strptime(beginning_date_str, '%Y-%m-%d')
         end_date = datetime.strptime(end_date_str, '%Y-%m-%d') + timedelta(days=1)
 
         with open("data_" + crypto_money + ".csv", 'a') as csv_file:
             wr = csv.writer(csv_file, delimiter=",")
-            # wr.writerow(
-            # ["id", "timestamp", "lowestPrice", "highestPrice", "openingPrice", "closingPrice", "volumeTraded"])
+            wr.writerow(
+            ["id", "timestamp", "lowestPrice", "highestPrice", "openingPrice", "closingPrice", "volumeTraded"])
             # first batch
             batch_end_date = min(end_date, batch_beginning_date + timedelta(hours=batchLengthHours))
             process_batch(products_EUR, batch_beginning_date, batch_end_date, wr)
